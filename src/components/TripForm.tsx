@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Preference } from '../services/generateItinerary';
+import { Utensils, Landmark, Baby, Mountain } from 'lucide-react';
 import './TripForm.css';
 
 interface Props {
@@ -84,10 +85,10 @@ export default function TripForm({ onSubmit, loading }: Props) {
               className={`pref-chip ${preferences.includes(p) ? 'active' : ''}`}
               onClick={() => togglePref(p)}
             >
-              {p === '美食' && '🍜 '}
-              {p === '文化' && '🏛️ '}
-              {p === '親子' && '👨‍👩‍👧 '}
-              {p === '戶外' && '🏕️ '}
+              {p === '美食' && <Utensils size={14} style={{ marginRight: 4, verticalAlign: 'text-bottom' }} />}
+              {p === '文化' && <Landmark size={14} style={{ marginRight: 4, verticalAlign: 'text-bottom' }} />}
+              {p === '親子' && <Baby size={14} style={{ marginRight: 4, verticalAlign: 'text-bottom' }} />}
+              {p === '戶外' && <Mountain size={14} style={{ marginRight: 4, verticalAlign: 'text-bottom' }} />}
               {p}
             </button>
           ))}

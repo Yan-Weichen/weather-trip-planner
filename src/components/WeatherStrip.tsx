@@ -5,6 +5,12 @@ interface Props {
   days: DayWeather[];
 }
 
+function getWeatherType(code: number): 'sunny' | 'cloudy' | 'rainy' {
+  if (code <= 1) return 'sunny';
+  if (code <= 3 || code === 45 || code === 48) return 'cloudy';
+  return 'rainy';
+}
+
 export default function WeatherStrip({ days }: Props) {
   if (days.length === 0) return null;
 
@@ -13,7 +19,16 @@ export default function WeatherStrip({ days }: Props) {
       {days.map((d) => (
         <div key={d.date} className="weather-card">
           <div className="weather-date">{formatDate(d.date)}</div>
-          <div className="weather-emoji">{d.emoji}</div>
+          <div className={`weather-emoji weather-emoji--${getWeatherType(d.weatherCode)}`}>
+            <span className="emoji-icon">{d.emoji}</span>
+            {getWeatherType(d.weatherCode) === 'rainy' && (
+              <span className="emoji-rain" aria-hidden="true">
+                <span className="rain-drop" />
+                <span className="rain-drop" />
+                <span className="rain-drop" />
+              </span>
+            )}
+          </div>
           <div className="weather-desc">{d.description}</div>
           <div className="weather-temp">
             <span className="temp-max">{Math.round(d.maxTemp)}°</span>

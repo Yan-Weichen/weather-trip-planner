@@ -3,6 +3,7 @@ import { getSavedTrips, deleteSavedTrip, type SavedTrip } from '../services/stor
 import { fetchTrips, deleteCloudTrip, shareTrip, type CloudTrip } from '../services/trips';
 import type { TripPlan } from '../types';
 import type { User } from '@supabase/supabase-js';
+import { ClipboardList, Smartphone, Cloud, Share2 } from 'lucide-react';
 import './SavedTrips.css';
 
 interface Props {
@@ -106,7 +107,7 @@ export default function SavedTrips({ onLoad, user }: Props) {
   return (
     <div className="saved-trips no-print">
       <button className="saved-trips-toggle" onClick={() => { setOpen(!open); setLocalTrips(getSavedTrips()); }}>
-        {'\u{1F4CB}'} {'\u6211\u7684\u884C\u7A0B'} ({localTrips.length}{user ? ` + ${cloudTrips.length}` : ''})
+        <ClipboardList size={14} style={{ verticalAlign: 'text-bottom', marginRight: 4 }} /> {'\u6211\u7684\u884C\u7A0B'} ({localTrips.length}{user ? ` + ${cloudTrips.length}` : ''})
       </button>
 
       {open && (
@@ -119,10 +120,10 @@ export default function SavedTrips({ onLoad, user }: Props) {
           {user && (
             <div className="saved-trips-tabs">
               <button className={`saved-trips-tab ${tab === 'local' ? 'active' : ''}`} onClick={() => setTab('local')}>
-                {'\u{1F4F1}'} {'\u672C\u6A5F'} ({localTrips.length})
+                <Smartphone size={13} style={{ verticalAlign: 'text-bottom', marginRight: 3 }} /> {'\u672C\u6A5F'} ({localTrips.length})
               </button>
               <button className={`saved-trips-tab ${tab === 'cloud' ? 'active' : ''}`} onClick={() => setTab('cloud')}>
-                {'\u2601\uFE0F'} {'\u96F2\u7AEF'} ({cloudTrips.length})
+                <Cloud size={13} style={{ verticalAlign: 'text-bottom', marginRight: 3 }} /> {'\u96F2\u7AEF'} ({cloudTrips.length})
               </button>
             </div>
           )}
@@ -147,7 +148,7 @@ export default function SavedTrips({ onLoad, user }: Props) {
                       onClick={() => handleShare(trip)}
                       title={trip.shareId ? '\u5DF2\u5206\u4EAB\uFF0C\u9EDE\u64CA\u8907\u88FD\u9023\u7D50' : '\u5206\u4EAB'}
                     >
-                      {trip.shareId ? '\u{1F517}' : '\u{1F4E4}'}
+                      <Share2 size={12} style={{ verticalAlign: 'text-bottom', marginRight: 2 }} />{'\u5206\u4EAB'}
                     </button>
                   )}
                   <button className="saved-trip-delete" onClick={() => handleDelete(trip)} title={'\u522A\u9664'}>{'\u2715'}</button>

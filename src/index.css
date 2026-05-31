@@ -7,12 +7,16 @@
   font: 16px/1.5 var(--sans);
   color-scheme: light;
   color: #333;
-  background: #f5f5f5;
+  background: #f7f8fa;
   -webkit-font-smoothing: antialiased;
 }
 
 body {
   margin: 0;
+}
+
+html {
+  overflow-x: hidden;
 }
 
 h1, h2, h3 {

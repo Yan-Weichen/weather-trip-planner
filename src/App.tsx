@@ -13,6 +13,7 @@ import { useTripPlanner } from './hooks/useTripPlanner';
 import { useAuth } from './hooks/useAuth';
 import { saveTrip } from './services/storage';
 import { saveCloudTrip } from './services/trips';
+import { Save, Printer, CloudSun, Route, Map } from 'lucide-react';
 import './App.css';
 
 function getWeatherTheme(weatherData: { precipProbability: number; weatherCode: number }[]) {
@@ -76,10 +77,10 @@ function App() {
           <p className="subtitle">根據即時天氣，用 AI 智慧規劃你的完美旅程</p>
           {!hasResult && (
             <div className="hero-features">
-              <span className="hero-chip">☀️ 即時天氣</span>
-              <span className="hero-chip">🤖 AI 行程</span>
-              <span className="hero-chip">🗺️ 互動地圖</span>
-              <span className="hero-chip">📊 天氣圖表</span>
+              <span className="hero-chip">即時天氣</span>
+              <span className="hero-chip">AI 行程</span>
+              <span className="hero-chip">互動地圖</span>
+              <span className="hero-chip">天氣圖表</span>
             </div>
           )}
         </div>
@@ -112,22 +113,15 @@ function App() {
         {hasResult && (
           <div className="results-container">
             <div className="weather-section">
-              <h2>{cityName} — 天氣預報</h2>
+              <h2 className="section-title"><CloudSun size={18} className="section-icon" /> {cityName} — 天氣預報</h2>
               <WeatherStrip days={weatherData} />
               <WeatherChart days={weatherData} />
             </div>
 
-            {tripPlan.totalBudgetMin > 0 && (
-              <div className="total-budget">
-                💰 整趟預估費用：NT${tripPlan.totalBudgetMin.toLocaleString()}–{tripPlan.totalBudgetMax.toLocaleString()}
-                <span className="budget-note">（估算值，實際依消費而定）</span>
-              </div>
-            )}
-
             <div className="trip-layout">
               <div className="trip-itinerary">
                 <div className="section-header">
-                  <h2>行程規劃</h2>
+                  <h2 className="section-title"><Route size={18} className="section-icon" /> 行程規劃</h2>
                   <div className="section-header-actions no-print">
                     <button className="save-btn" onClick={async () => {
                       saveTrip(tripPlan);
@@ -142,10 +136,10 @@ function App() {
                         alert('行程已儲存至本機！登入後可同步至雲端。');
                       }
                     }}>
-                      💾 儲存行程
+                      <Save size={14} style={{ verticalAlign: 'text-bottom', marginRight: 4 }} /> 儲存行程
                     </button>
                     <button className="export-btn" onClick={() => window.print()}>
-                      🖨️ 匯出 / 列印
+                      <Printer size={14} style={{ verticalAlign: 'text-bottom', marginRight: 4 }} /> 匯出 / 列印
                     </button>
                   </div>
                 </div>
@@ -164,7 +158,7 @@ function App() {
                 />
               </div>
               <div className="trip-map-col no-print">
-                <h2>行程地圖</h2>
+                <h2 className="section-title"><Map size={18} className="section-icon" /> 行程地圖</h2>
                 <div className="map-sticky">
                   <TripMap
                     dailyPlans={tripPlan.dailyPlans}

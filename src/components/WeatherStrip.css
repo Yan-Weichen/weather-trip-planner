@@ -32,6 +32,78 @@
 .weather-emoji {
   font-size: 2rem;
   line-height: 1;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+}
+
+/* Sunny: slow gentle glow pulse */
+.weather-emoji--sunny .emoji-icon {
+  display: inline-block;
+  animation: sunny-glow 3s ease-in-out infinite;
+}
+@keyframes sunny-glow {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px transparent); }
+  50% { transform: scale(1.08); filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.5)); }
+}
+
+/* Cloudy: slow horizontal drift */
+.weather-emoji--cloudy .emoji-icon {
+  display: inline-block;
+  animation: cloudy-drift 4s ease-in-out infinite;
+}
+@keyframes cloudy-drift {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(3px); }
+}
+
+/* Rainy: icon stays still, tiny rain drops fall below */
+.weather-emoji--rainy .emoji-icon {
+  display: inline-block;
+}
+.emoji-rain {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 3px;
+  pointer-events: none;
+}
+.rain-drop {
+  width: 1.5px;
+  height: 6px;
+  background: rgba(100, 150, 220, 0.6);
+  border-radius: 0 0 1px 1px;
+  animation: rain-drip 1.2s ease-in infinite;
+}
+.rain-drop:nth-child(2) {
+  animation-delay: 0.3s;
+  height: 5px;
+}
+.rain-drop:nth-child(3) {
+  animation-delay: 0.6s;
+  height: 7px;
+}
+@keyframes rain-drip {
+  0% { opacity: 0; transform: translateY(-3px); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(6px); }
+}
+
+/* Accessibility: disable animations for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .weather-emoji--sunny .emoji-icon,
+  .weather-emoji--cloudy .emoji-icon {
+    animation: none;
+  }
+  .rain-drop {
+    animation: none;
+    opacity: 0.5;
+    transform: none;
+  }
 }
 
 .weather-desc {
@@ -60,4 +132,26 @@
 .weather-precip {
   font-size: 0.8rem;
   color: #5b9bd5;
+}
+
+@media (max-width: 480px) {
+  .weather-card {
+    min-width: 80px;
+    padding: 10px 8px;
+  }
+  .weather-emoji {
+    font-size: 1.5rem;
+  }
+  .weather-date {
+    font-size: 0.75rem;
+  }
+  .weather-desc {
+    font-size: 0.7rem;
+  }
+  .weather-temp {
+    font-size: 0.85rem;
+  }
+  .weather-precip {
+    font-size: 0.7rem;
+  }
 }

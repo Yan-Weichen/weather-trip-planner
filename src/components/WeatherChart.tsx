@@ -10,6 +10,7 @@ import {
   Legend,
 } from 'recharts';
 import type { DayWeather } from '../types';
+import { TrendingUp } from 'lucide-react';
 import './WeatherChart.css';
 
 interface Props {
@@ -31,7 +32,7 @@ export default function WeatherChart({ days }: Props) {
 
   return (
     <div className="weather-chart">
-      <h3>天氣趨勢</h3>
+      <h3 className="section-title"><TrendingUp size={16} className="section-icon" /> 天氣趨勢</h3>
       <ResponsiveContainer width="100%" height={260}>
         <ComposedChart data={data} margin={{ top: 8, right: 8, bottom: 0, left: -16 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#eee" />

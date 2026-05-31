@@ -47,14 +47,18 @@ export async function searchPlace(
       body: JSON.stringify({
         textQuery,
         languageCode: 'zh-TW',
-        maxResultCount: 1,
+        maxResultCount: 5,
       }),
     });
 
     if (!res.ok) return null;
 
     const data: TextSearchResult = await res.json();
-    const place = data.places?.[0];
+    if (!data.places?.length) return null;
+
+    // Pick the first result that has reviews — avoids wrong matches (e.g. private apartments)
+    const place = data.places.find((p) => p.userRatingCount && p.userRatingCount > 0)
+      ?? null;
     if (!place) return null;
 
     let photoUrl: string | undefined;

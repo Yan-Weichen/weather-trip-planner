@@ -24,7 +24,7 @@ const itineraryItemSchema: Schema = {
     mealType: { type: Type.STRING, enum: ['breakfast', 'lunch', 'dinner'], description: '餐別（僅 meal）' },
     transitMode: { type: Type.STRING, description: '交通方式（僅 transit）' },
   },
-  required: ['type', 'name', 'address', 'durationMinutes', 'description', 'costMin', 'costMax'],
+  required: ['type', 'name', 'address', 'lat', 'lon', 'durationMinutes', 'description', 'costMin', 'costMax'],
 };
 
 const tripPlanSchema: Schema = {
@@ -88,7 +88,7 @@ ${weatherInfo}
 1. 降雨機率超過 60% 的日子，景點優先安排 category: "indoor"
 2. 晴天或降雨機率低的日子，景點優先安排 category: "outdoor"
 3. 每個項目都要有完整可被地圖搜尋到的 address（包含城市名）
-4. 經緯度座標要盡量準確
+4. 每個項目（包含住宿 lodging）都必須有準確的 lat 和 lon 經緯度座標
 5. 同一天的景點之間距離不要太遠，方便移動
 6. 每個項目的 description 用繁體中文寫推薦理由，景點需提到天氣
 7. costMin / costMax 用台幣估算合理區間

@@ -1,5 +1,6 @@
 import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
 import type { TripPlan } from '../types';
+import { Wallet } from 'lucide-react';
 import './BudgetChart.css';
 
 interface Props {
@@ -41,18 +42,27 @@ export default function BudgetChart({ tripPlan }: Props) {
   if (data.length === 0) return null;
 
   const total = data.reduce((s, d) => s + d.value, 0);
+  const { totalBudgetMin, totalBudgetMax } = tripPlan;
 
   return (
     <div className="budget-chart no-print">
-      <h3>{'\u{1F4CA}'} {'\u9810\u7B97\u5206\u4F48'}</h3>
-      <ResponsiveContainer width="100%" height={220}>
+      <h3 className="section-title">
+        <Wallet size={18} className="section-icon" /> 費用總覽
+      </h3>
+      {totalBudgetMin > 0 && (
+        <div className="budget-range">
+          NT${totalBudgetMin.toLocaleString()} – {totalBudgetMax.toLocaleString()}
+          <span className="budget-range-note">預估總費用（依實際消費而定）</span>
+        </div>
+      )}
+      <ResponsiveContainer width="100%" height={200}>
         <PieChart>
           <Pie
             data={data}
             cx="50%"
             cy="50%"
-            innerRadius={50}
-            outerRadius={80}
+            innerRadius={45}
+            outerRadius={72}
             dataKey="value"
           >
             {data.map((d) => (
@@ -69,9 +79,6 @@ export default function BudgetChart({ tripPlan }: Props) {
           <Legend />
         </PieChart>
       </ResponsiveContainer>
-      <div className="budget-chart-total">
-        {'\u5E73\u5747\u9810\u4F30\u7E3D\u8CBB\u7528\uFF1A'}NT${total.toLocaleString()}
-      </div>
     </div>
   );
 }

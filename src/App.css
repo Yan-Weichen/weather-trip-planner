@@ -5,29 +5,17 @@
   transition: background-color 0.5s;
 }
 
-/* === Dynamic weather themes === */
-.app.theme-sunny {
-  background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 30%, #f5f5f5 60%);
-}
-
-.app.theme-rainy {
-  background: linear-gradient(180deg, #e0e7ef 0%, #cbd5e1 30%, #f0f0f0 60%);
-}
-
-.app.theme-cloudy {
-  background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 30%, #f5f5f5 60%);
+/* === Dynamic weather themes (subtle header tint only) === */
+.app.theme-sunny .app-header {
+  background: linear-gradient(135deg, #7b6ce0 0%, #8b5da8 50%, #9b6eb0 100%);
 }
 
 .app.theme-rainy .app-header {
-  background: linear-gradient(135deg, #475569 0%, #334155 100%);
-}
-
-.app.theme-sunny .app-header {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  background: linear-gradient(135deg, #5b6cba 0%, #5c4f8a 100%);
 }
 
 .app.theme-cloudy .app-header {
-  background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+  background: linear-gradient(135deg, #6170c2 0%, #6b5697 100%);
 }
 
 /* === Header & Hero === */
@@ -130,26 +118,6 @@
   box-sizing: border-box;
 }
 
-/* === Total budget === */
-.total-budget {
-  text-align: center;
-  padding: 16px 20px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-top: 16px;
-}
-
-.budget-note {
-  display: block;
-  font-size: 0.78rem;
-  font-weight: 400;
-  color: #9ca3af;
-  margin-top: 2px;
-}
 
 /* === Error === */
 .error-msg {
@@ -182,16 +150,26 @@
   color: #b91c1c;
 }
 
+/* === Unified section titles === */
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 12px;
+}
+
+.section-icon {
+  color: #667eea;
+  flex-shrink: 0;
+}
+
 /* === Weather section === */
 .weather-section {
   margin-top: 8px;
   margin-bottom: 8px;
-}
-
-.weather-section h2 {
-  font-size: 1.2rem;
-  margin-bottom: 12px;
-  color: #444;
 }
 
 /* === Section header === */
@@ -206,8 +184,6 @@
 
 .section-header h2 {
   margin: 0;
-  font-size: 1.2rem;
-  color: #444;
 }
 
 /* === Export button === */
@@ -236,15 +212,29 @@
   margin-top: 24px;
 }
 
+.trip-itinerary {
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.trip-map-col {
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
 .trip-layout h2 {
-  font-size: 1.2rem;
   margin: 0 0 12px;
-  color: #444;
 }
 
 .map-sticky {
   position: sticky;
   top: 24px;
+  max-width: 100%;
 }
 
 .clear-highlight {
@@ -294,18 +284,18 @@
 
 .save-btn {
   padding: 8px 16px;
-  background: #f0fdf4;
-  color: #15803d;
-  border: 1px solid #bbf7d0;
+  background: #fff;
+  color: #667eea;
+  border: 1.5px solid #667eea;
   border-radius: 8px;
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.2s;
 }
 .save-btn:hover {
-  background: #dcfce7;
-  border-color: #86efac;
+  background: #667eea;
+  color: #fff;
 }
 
 /* === Reset === */
@@ -346,45 +336,99 @@
 }
 
 /* === RWD === */
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .hero h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .subtitle {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .app-header {
-    padding: 32px 16px 28px;
+    padding: 40px 16px 28px;
+  }
+
+  .auth-bar {
+    top: 8px;
+    right: 12px;
+  }
+
+  .auth-user-email {
+    max-width: 120px;
+    font-size: 0.75rem;
   }
 
   .app-main {
-    padding: 16px;
+    padding: 12px;
   }
 
   .trip-layout {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .trip-map-col {
-    order: -1;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero h1 {
-    font-size: 1.6rem;
+    order: 1;
   }
 
-  .hero-chip {
-    font-size: 0.78rem;
-    padding: 4px 12px;
+  .trip-itinerary {
+    order: 0;
+  }
+
+  .map-sticky {
+    position: static;
   }
 
   .section-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .section-header-actions {
+    width: 100%;
+  }
+
+  .section-header-actions .save-btn,
+  .section-header-actions .export-btn {
+    flex: 1;
+  }
+
+  .reset-row {
+    padding-bottom: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.4rem;
+  }
+
+  .subtitle {
+    font-size: 0.85rem;
+  }
+
+  .hero-chip {
+    font-size: 0.72rem;
+    padding: 3px 8px;
+  }
+
+  .app-header {
+    padding: 36px 12px 20px;
+  }
+
+  .app-main {
+    padding: 6px;
+  }
+
+  .trip-form {
+    padding: 16px 12px;
+  }
+
+  .weather-section h2,
+  .section-header h2,
+  .trip-layout h2 {
+    font-size: 1.05rem;
   }
 }
 
@@ -415,15 +459,6 @@
 
   .trip-form, .app-footer {
     display: none;
-  }
-
-  .total-budget {
-    font-size: 0.9rem;
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    margin-bottom: 12px;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
   }
 
   .day-block {

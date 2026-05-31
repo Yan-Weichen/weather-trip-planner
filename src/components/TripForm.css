@@ -13,9 +13,24 @@
   margin-bottom: 16px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
   .form-row {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .trip-form {
+    padding: 16px 12px;
+    margin-bottom: 16px;
+  }
+  .pref-chip {
+    padding: 6px 12px;
+    font-size: 0.82rem;
+  }
+  .submit-btn {
+    padding: 12px;
+    font-size: 0.95rem;
   }
 }
 

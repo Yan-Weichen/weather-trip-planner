@@ -15,8 +15,10 @@
   padding: 32px;
   width: 100%;
   max-width: 380px;
+  margin: 0 16px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   position: relative;
+  box-sizing: border-box;
 }
 
 .auth-close {

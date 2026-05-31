@@ -147,14 +147,16 @@
 .saved-trip-share {
   background: none;
   border: none;
-  color: #94a3b8;
-  font-size: 0.85rem;
+  color: #4285f4;
+  font-size: 0.75rem;
+  font-weight: 500;
   cursor: pointer;
   padding: 4px 6px;
   border-radius: 4px;
   flex-shrink: 0;
+  text-decoration: none;
 }
 .saved-trip-share:hover {
-  background: #f0f0ff;
-  color: #667eea;
+  text-decoration: underline;
+  color: #1a73e8;
 }

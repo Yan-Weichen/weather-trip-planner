@@ -142,7 +142,19 @@ export function useTripPlanner() {
 
   const refreshPlaces = useCallback((items: ItineraryItem[], city: string) => {
     enrichItemsWithPlaces(items, city).then(() => {
-      setState((prev) => prev.tripPlan ? { ...prev, tripPlan: { ...prev.tripPlan! } } : prev);
+      // Build a map of enriched placeDetails keyed by item id
+      const detailsMap = new Map(items.filter((it) => it.placeDetails).map((it) => [it.id, it.placeDetails!]));
+      setState((prev) => {
+        if (!prev.tripPlan) return prev;
+        const dailyPlans = prev.tripPlan.dailyPlans.map((day) => ({
+          ...day,
+          items: day.items.map((item) => {
+            const pd = detailsMap.get(item.id);
+            return pd ? { ...item, placeDetails: pd } : item;
+          }),
+        }));
+        return { ...prev, tripPlan: { ...prev.tripPlan, dailyPlans } };
+      });
     }).catch(() => {});
   }, []);
 

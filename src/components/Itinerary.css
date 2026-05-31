@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 /* Day block */
@@ -10,6 +12,7 @@
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   overflow: hidden;
+  max-width: 100%;
 }
 
 .day-header {
@@ -413,19 +416,19 @@
 }
 
 .regen-day-btn {
-  background: #fff7ed;
-  border: 1px solid #fed7aa;
+  background: #f5f3ff;
+  border: 1px solid #c4b5fd;
   padding: 6px 16px;
   border-radius: 8px;
   font-size: 0.82rem;
   font-weight: 500;
-  color: #c2410c;
+  color: #6d28d9;
   cursor: pointer;
   transition: all 0.15s;
 }
 .regen-day-btn:hover {
-  background: #ffedd5;
-  border-color: #fb923c;
+  background: #ede9fe;
+  border-color: #a78bfa;
 }
 .regen-day-btn:disabled {
   opacity: 0.6;
@@ -506,6 +509,12 @@
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+.lucide-spin {
+  animation: spin 1s linear infinite;
+  vertical-align: text-bottom;
+  margin-right: 3px;
 }
 
 .candidates-empty {
@@ -650,4 +659,125 @@
   color: #94a3b8;
   margin-left: 2px;
   font-size: 0.78rem;
+}
+
+/* === Itinerary RWD === */
+@media (max-width: 768px) {
+  .edit-mode-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .edit-mode-actions {
+    flex-wrap: wrap;
+  }
+  .edit-mode-actions button {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.75rem;
+    padding: 6px 8px;
+  }
+  .item-photo {
+    max-height: 120px;
+  }
+  .item-photo img {
+    max-height: 120px;
+  }
+  .candidates-list {
+    flex-direction: column;
+  }
+  .candidate-card {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .day-header {
+    padding: 12px 12px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .day-header-right {
+    width: 100%;
+  }
+  .day-weather-badge,
+  .day-budget-badge {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+  }
+  .day-number {
+    font-size: 1.05rem;
+  }
+  .day-date {
+    font-size: 0.8rem;
+  }
+  .items-list {
+    padding: 8px 8px;
+    gap: 6px;
+  }
+  .item-card {
+    padding: 10px 8px;
+    gap: 8px;
+  }
+  .item-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 0.85rem;
+  }
+  .item-name {
+    font-size: 0.88rem;
+  }
+  .item-desc {
+    font-size: 0.75rem;
+  }
+  .item-address {
+    font-size: 0.72rem;
+  }
+  .item-meta {
+    font-size: 0.72rem;
+    gap: 6px;
+  }
+  .item-tags .tag {
+    font-size: 0.65rem;
+    padding: 1px 6px;
+  }
+  .lodging-area-tag {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+  }
+  .rain-warning {
+    padding: 8px 12px;
+    font-size: 0.78rem;
+  }
+  .day-edit-toolbar {
+    padding: 8px 10px;
+  }
+  .edit-day-btn {
+    font-size: 0.78rem;
+    padding: 6px 12px;
+  }
+  .gmaps-link {
+    font-size: 0.62em;
+  }
+  .item-left {
+    flex-shrink: 0;
+  }
+  .item-content {
+    min-width: 0;
+    overflow: hidden;
+    word-break: break-word;
+  }
+  .candidates-panel {
+    margin-left: 0;
+  }
+  .item-name {
+    word-break: break-word;
+  }
+  .item-address {
+    white-space: normal;
+    word-break: break-all;
+  }
+  .item-meta {
+    flex-wrap: wrap;
+  }
 }

@@ -13,6 +13,7 @@ import {
   useSortable,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { MapPin, UtensilsCrossed, Hotel, Bus, Lock, Unlock, X, Clock, Star, Coins, Pencil, RefreshCw, Check, Wrench, Settings, MapPinned } from 'lucide-react';
 import type { DayPlan, ItineraryItem } from '../types';
 import './Itinerary.css';
 
@@ -30,11 +31,11 @@ interface Props {
   onRegenerateDay?: (dayIndex: number) => Promise<void>;
 }
 
-const TYPE_ICONS: Record<string, string> = {
-  attraction: '\u{1F4CD}',
-  meal: '\u{1F37D}\uFE0F',
-  lodging: '\u{1F3E8}',
-  transit: '\u{1F68C}',
+const TYPE_ICONS: Record<string, React.ReactNode> = {
+  attraction: <MapPin size={16} />,
+  meal: <UtensilsCrossed size={16} />,
+  lodging: <Hotel size={16} />,
+  transit: <Bus size={14} />,
 };
 
 const MEAL_LABELS: Record<string, string> = {
@@ -216,13 +217,13 @@ function DayBlock({
             <span className="badge-temp">{Math.round(day.weather.maxTemp)}{'\u00B0'} / {Math.round(day.weather.minTemp)}{'\u00B0'}</span>
           </div>
           <div className="day-budget-badge">
-            {'\u{1F4B0}'} {formatCost(day.dayBudgetMin, day.dayBudgetMax)}
+            <Coins size={13} style={{ verticalAlign: 'text-bottom', marginRight: 2 }} /> {formatCost(day.dayBudgetMin, day.dayBudgetMax)}
           </div>
         </div>
       </div>
 
       {day.lodgingArea && (
-        <div className="lodging-area-tag">{'\u{1F3E8}'} {'\u4F4F\u5BBF\u5340\u57DF\uFF1A'}{day.lodgingArea}</div>
+        <div className="lodging-area-tag"><Hotel size={14} style={{ verticalAlign: 'text-bottom', marginRight: 4 }} /> {'\u4F4F\u5BBF\u5340\u57DF\uFF1A'}{day.lodgingArea}</div>
       )}
 
       {isRainy && (
@@ -235,20 +236,20 @@ function DayBlock({
       <div className="day-edit-toolbar no-print">
         {!editing ? (
           <button className="edit-day-btn" onClick={handleEnterEdit}>
-            {'\u270F\uFE0F'} {'\u4FEE\u6539\u884C\u7A0B'}
+            <Pencil size={13} style={{ verticalAlign: 'text-bottom', marginRight: 4 }} /> {'\u4FEE\u6539\u884C\u7A0B'}
           </button>
         ) : (
           <div className="edit-mode-bar">
-            <span className="edit-mode-label">{'\u{1F6E0}\uFE0F'} {'\u7DE8\u8F2F\u6A21\u5F0F'} {'\u2014'} {'\u62D6\u62C9\u6392\u5E8F\u3001\u522A\u9664\u6216\u9EDE\u64CA\u66FF\u63DB\u9805\u76EE\uFF0C\u5B8C\u6210\u5F8C\u6309\u78BA\u8A8D'}</span>
+            <span className="edit-mode-label"><Wrench size={13} style={{ verticalAlign: 'text-bottom', marginRight: 4 }} /> {'\u7DE8\u8F2F\u6A21\u5F0F'} {'\u2014'} {'\u62D6\u62C9\u6392\u5E8F\u3001\u522A\u9664\u6216\u9EDE\u64CA\u66FF\u63DB\u9805\u76EE\uFF0C\u5B8C\u6210\u5F8C\u6309\u78BA\u8A8D'}</span>
             <div className="edit-mode-actions">
               <button className="regen-day-btn" onClick={handleRegenerateDay} disabled={confirmLoading || regenLoading}>
-                {regenLoading ? '\u{2699}\uFE0F AI \u91CD\u65B0\u7522\u751F\u4E2D\u2026' : '\u{1F504} \u91CD\u65B0\u7522\u751F\u884C\u7A0B'}
+                {regenLoading ? <><Settings size={13} className="lucide-spin" /> AI {'\u91CD\u65B0\u7522\u751F\u4E2D\u2026'}</> : <><RefreshCw size={13} style={{ verticalAlign: 'text-bottom', marginRight: 3 }} /> {'\u91CD\u65B0\u7522\u751F\u884C\u7A0B'}</>}
               </button>
               <button className="cancel-edit-btn" onClick={handleCancelEdit} disabled={confirmLoading || regenLoading}>
                 {'\u53D6\u6D88'}
               </button>
               <button className="confirm-edit-btn" onClick={handleConfirmEdit} disabled={confirmLoading || regenLoading}>
-                {confirmLoading ? '\u{2699}\uFE0F AI \u898F\u5283\u4E2D\u2026' : '\u2705 \u78BA\u8A8D\u4FEE\u6539'}
+                {confirmLoading ? <><Settings size={13} className="lucide-spin" /> AI {'\u898F\u5283\u4E2D\u2026'}</> : <><Check size={13} style={{ verticalAlign: 'text-bottom', marginRight: 3 }} /> {'\u78BA\u8A8D\u4FEE\u6539'}</>}
               </button>
             </div>
           </div>
@@ -301,7 +302,7 @@ function DayBlock({
                   {isReplacing && (
                     <div className="candidates-panel">
                       <div className="candidates-header">
-                        {'\u{1F504}'} {'\u9078\u64C7\u66FF\u4EE3\u65B9\u6848'}
+                        <RefreshCw size={13} style={{ verticalAlign: 'text-bottom', marginRight: 4 }} /> {'\u9078\u64C7\u66FF\u4EE3\u65B9\u6848'}
                         <button className="candidates-close" onClick={() => { setReplacingIdx(null); setCandidates([]); }}>{'\u2715'}</button>
                       </div>
                       {candidateLoading ? (
@@ -431,7 +432,7 @@ function SortableItemCard({ item, isActive, editing, isReplacing, onClick, onDel
               : item.startTime ?? ''}
           </div>
           <div className="item-tags">
-            {item.locked && <span className="tag tag--locked">{'\u{1F512}'} {'\u9396\u5B9A'}</span>}
+            {item.locked && <span className="tag tag--locked"><Lock size={11} style={{ verticalAlign: 'text-bottom', marginRight: 2 }} /> {'\u9396\u5B9A'}</span>}
             {item.type === 'attraction' && item.category && (
               <span className={`tag tag--${item.category}`}>
                 {item.category === 'indoor' ? '\u{1F3DB}\uFE0F \u5BA4\u5167' : '\u{1F333} \u6236\u5916'}
@@ -455,7 +456,7 @@ function SortableItemCard({ item, isActive, editing, isReplacing, onClick, onDel
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
             >
-              Google Maps
+              <MapPinned size={12} style={{ verticalAlign: 'text-bottom', marginRight: 2 }} /> Google Maps
             </a>
           )}
         </h4>
@@ -469,11 +470,11 @@ function SortableItemCard({ item, isActive, editing, isReplacing, onClick, onDel
         <div className="item-meta">
           <span className="item-cost">{formatCost(item.costMin, item.costMax)}</span>
           {item.durationMinutes > 0 && item.type !== 'lodging' && (
-            <span>{'\u23F1\uFE0F'} {item.durationMinutes} {'\u5206\u9418'}</span>
+            <span><Clock size={12} style={{ verticalAlign: 'text-bottom', marginRight: 2 }} /> {item.durationMinutes} {'\u5206\u9418'}</span>
           )}
           {item.placeDetails?.rating && (
             <span className="item-rating">
-              {'\u2B50'} {item.placeDetails.rating.toFixed(1)}
+              <Star size={12} style={{ verticalAlign: 'text-bottom', marginRight: 2 }} /> {item.placeDetails.rating.toFixed(1)}
               {item.placeDetails.userRatingCount && (
                 <span className="rating-count">({item.placeDetails.userRatingCount.toLocaleString()})</span>
               )}
@@ -481,14 +482,14 @@ function SortableItemCard({ item, isActive, editing, isReplacing, onClick, onDel
           )}
         </div>
         {editing && !isLockedInEdit && (
-          <div className="item-edit-hint">{'\u{1F504}'} {'\u9EDE\u64CA\u66FF\u63DB\u6B64\u9805\u76EE'}</div>
+          <div className="item-edit-hint"><RefreshCw size={11} style={{ verticalAlign: 'text-bottom', marginRight: 3 }} /> {'\u9EDE\u64CA\u66FF\u63DB\u6B64\u9805\u76EE'}</div>
         )}
       </div>
       {/* Actions only in edit mode */}
       {editing && (
         <div className="item-actions item-actions--visible">
           <button className="action-btn lock-btn" onClick={onToggleLock} title={item.locked ? '\u89E3\u9396' : '\u9396\u5B9A'}>
-            {item.locked ? '\u{1F512}' : '\u{1F513}'}
+            {item.locked ? <Lock size={14} /> : <Unlock size={14} />}
           </button>
           {!item.locked && (
             <button className="action-btn delete-btn" onClick={onDelete} title={'\u522A\u9664'}>{'\u2715'}</button>

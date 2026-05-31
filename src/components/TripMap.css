@@ -1,10 +1,17 @@
 .trip-map {
   width: 100%;
+  max-width: 100%;
   height: 450px;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   z-index: 0;
+}
+
+@media (max-width: 768px) {
+  .trip-map {
+    height: 280px;
+  }
 }
 
 .custom-marker {

@@ -7,14 +7,33 @@
 }
 
 .budget-chart h3 {
-  margin: 0 0 12px;
-  font-size: 1rem;
-  color: #1f2937;
+  margin: 0 0 8px;
 }
 
-.budget-chart-total {
+.budget-range {
   text-align: center;
-  font-size: 0.85rem;
-  color: #6b7280;
-  margin-top: 8px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  padding: 8px 0 4px;
+}
+
+.budget-range-note {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+@media (max-width: 480px) {
+  .budget-chart {
+    padding: 14px 10px;
+  }
+  .budget-range {
+    font-size: 1.05rem;
+  }
+  .budget-range-note {
+    font-size: 0.72rem;
+  }
 }
