@@ -1,0 +1,69 @@
+.trip-map {
+  width: 100%;
+  height: 450px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 0;
+}
+
+.custom-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.marker-popup {
+  min-width: 160px;
+}
+
+.marker-popup strong {
+  display: block;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.marker-popup p {
+  margin: 6px 0;
+  font-size: 0.82rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+.marker-popup small {
+  color: #999;
+  font-size: 0.75rem;
+}
+
+.popup-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.popup-tag[data-category="indoor"] {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.popup-tag[data-category="outdoor"] {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.popup-tag[data-category="meal"] {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.popup-tag[data-category="lodging"] {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.popup-address {
+  font-size: 0.72rem;
+  color: #999;
+  margin-top: 2px;
+}

@@ -1,0 +1,653 @@
+.itinerary {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Day block */
+.day-block {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.day-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.day-number {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.day-date {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.day-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.day-weather-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+}
+
+.day-budget-badge {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+}
+
+.badge-emoji {
+  font-size: 1.1rem;
+}
+
+.lodging-area-tag {
+  padding: 8px 20px;
+  background: #f0f9ff;
+  color: #0369a1;
+  font-size: 0.82rem;
+  font-weight: 500;
+  border-bottom: 1px solid #bae6fd;
+}
+
+/* Rain warning */
+.rain-warning {
+  padding: 10px 20px;
+  background: #fff7ed;
+  color: #c2410c;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-bottom: 1px solid #fed7aa;
+}
+
+/* Items list */
+.items-list {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* === Item card (shared) === */
+.item-card {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+  outline: none;
+}
+
+/* Icon circle */
+.item-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.item-icon--attraction { background: #ede9fe; }
+.item-icon--meal       { background: #fef3c7; }
+.item-icon--lodging    { background: #dbeafe; }
+.item-icon--transit    { background: #f1f5f9; width: 28px; height: 28px; font-size: 0.85rem; }
+
+/* === Normal cards (attraction / meal / lodging) === */
+.item-card--attraction,
+.item-card--meal,
+.item-card--lodging {
+  background: #f9fafb;
+  cursor: pointer;
+}
+
+.item-card--attraction:hover,
+.item-card--meal:hover,
+.item-card--lodging:hover {
+  border-color: #e0e0e0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.item-card.active {
+  border-color: #667eea;
+  background: #f0f0ff;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+/* === Transit card (compact) === */
+.item-card--transit {
+  padding: 6px 14px;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+}
+
+.transit-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 0.78rem;
+  color: #94a3af;
+}
+
+.transit-mode-tag {
+  background: #e2e8f0;
+  color: #475569;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.72rem;
+}
+
+.transit-name {
+  color: #64748b;
+}
+
+.transit-time {
+  color: #94a3af;
+}
+
+.transit-cost {
+  color: #94a3af;
+}
+
+/* === Card content === */
+.item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.item-time {
+  font-size: 0.78rem;
+  color: #667eea;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.item-tags {
+  display: flex;
+  gap: 4px;
+}
+
+.tag {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tag--indoor  { background: #e0f2fe; color: #0369a1; }
+.tag--outdoor { background: #dcfce7; color: #15803d; }
+.tag--meal    { background: #fef3c7; color: #92400e; }
+.tag--lodging { background: #dbeafe; color: #1e40af; }
+
+.item-name {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.item-address {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-desc {
+  margin: 5px 0;
+  font-size: 0.82rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.item-meta {
+  display: flex;
+  gap: 12px;
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.item-cost {
+  font-weight: 500;
+}
+
+/* === Drag handle === */
+.drag-handle {
+  cursor: grab;
+  color: #cbd5e1;
+  font-size: 1.1rem;
+  line-height: 1;
+  user-select: none;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+.drag-handle:hover {
+  color: #94a3b8;
+}
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+/* Left column (drag handle + icon) */
+.item-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+/* === Action buttons (only shown in edit mode) === */
+.item-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.item-actions--visible {
+  opacity: 1;
+}
+
+.action-btn {
+  background: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: background 0.15s, border-color 0.15s;
+  line-height: 1;
+}
+
+.lock-btn:hover {
+  background: #f0f9ff;
+  border-color: #bae6fd;
+}
+
+.delete-btn {
+  color: #94a3b8;
+  font-size: 0.75rem;
+}
+.delete-btn:hover {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #ef4444;
+}
+
+/* === Locked state === */
+.item-card.locked {
+  background: #fefce8;
+  border-color: #fde68a;
+}
+
+.tag--locked {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* === Edit mode === */
+.day-block--editing {
+  box-shadow: 0 0 0 2px #667eea, 0 4px 16px rgba(102, 126, 234, 0.15);
+}
+
+.day-edit-toolbar {
+  padding: 8px 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.edit-day-btn {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.edit-day-btn:hover {
+  background: #f0f0ff;
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.edit-mode-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.edit-mode-label {
+  font-size: 0.78rem;
+  color: #667eea;
+  font-weight: 500;
+}
+
+.edit-mode-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.cancel-edit-btn {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.cancel-edit-btn:hover {
+  background: #e2e8f0;
+}
+
+.confirm-edit-btn {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
+  padding: 6px 20px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.confirm-edit-btn:hover {
+  opacity: 0.9;
+}
+.confirm-edit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.regen-day-btn {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #c2410c;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.regen-day-btn:hover {
+  background: #ffedd5;
+  border-color: #fb923c;
+}
+.regen-day-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Edit mode item hint */
+.item-edit-hint {
+  margin-top: 6px;
+  font-size: 0.72rem;
+  color: #667eea;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.item-card.edit-mode:hover .item-edit-hint {
+  opacity: 1;
+}
+
+/* Replacing state */
+.item-card.replacing {
+  border-color: #667eea;
+  background: #f0f0ff;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+/* === Candidates panel === */
+.candidates-panel {
+  margin: 4px 0 8px 48px;
+  background: #fafaff;
+  border: 1px solid #e0e0ff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.candidates-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background: #f0f0ff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #667eea;
+}
+
+.candidates-close {
+  background: none;
+  border: none;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.candidates-close:hover {
+  background: #e0e0ff;
+  color: #667eea;
+}
+
+.candidates-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 16px;
+  font-size: 0.82rem;
+  color: #94a3b8;
+}
+
+.candidates-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #e0e0ff;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.candidates-empty {
+  padding: 16px;
+  text-align: center;
+  font-size: 0.82rem;
+  color: #94a3b8;
+}
+
+.candidates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: #e5e7eb;
+}
+
+/* === Candidate card === */
+.candidate-card {
+  display: flex;
+  gap: 10px;
+  padding: 12px 16px;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.candidate-card:hover {
+  background: #f0f0ff;
+}
+
+.candidate-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ede9fe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+.candidate-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.candidate-name {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.candidate-address {
+  font-size: 0.72rem;
+  color: #9ca3af;
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.candidate-desc {
+  margin: 4px 0;
+  font-size: 0.78rem;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+.candidate-meta {
+  display: flex;
+  gap: 10px;
+  font-size: 0.72rem;
+  color: #9ca3af;
+}
+
+.candidate-select-hint {
+  align-self: center;
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  color: #667eea;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.candidate-card:hover .candidate-select-hint {
+  opacity: 1;
+}
+
+/* Print */
+@media print {
+  .item-card {
+    cursor: default;
+    break-inside: avoid;
+  }
+  .item-actions,
+  .drag-handle,
+  .day-edit-toolbar,
+  .candidates-panel,
+  .item-edit-hint {
+    display: none;
+  }
+}
+
+/* === Google Places details === */
+.gmaps-link {
+  margin-left: 8px;
+  font-size: 0.7em;
+  text-decoration: none;
+  color: #4285f4;
+  font-weight: 500;
+  opacity: 0.85;
+  transition: opacity 0.15s;
+  vertical-align: middle;
+}
+.gmaps-link:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.item-photo {
+  margin: 6px 0 8px;
+  border-radius: 8px;
+  overflow: hidden;
+  max-height: 160px;
+}
+.item-photo img {
+  width: 100%;
+  height: 100%;
+  max-height: 160px;
+  object-fit: cover;
+  display: block;
+}
+
+.item-rating {
+  color: #d97706;
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+.rating-count {
+  font-weight: 400;
+  color: #94a3b8;
+  margin-left: 2px;
+  font-size: 0.78rem;
+}

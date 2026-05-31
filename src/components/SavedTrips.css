@@ -1,0 +1,160 @@
+.saved-trips {
+  margin-bottom: 16px;
+}
+
+.saved-trips-toggle {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.saved-trips-toggle:hover {
+  background: #f0f0ff;
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.saved-trips-panel {
+  margin-top: 8px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.saved-trips-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.saved-trips-header h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #1f2937;
+}
+
+.saved-trips-close {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.saved-trips-close:hover {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.saved-trips-tabs {
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+}
+.saved-trips-tab {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #94a3b8;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+}
+.saved-trips-tab:hover {
+  color: #475569;
+  background: #f8fafc;
+}
+.saved-trips-tab.active {
+  color: #667eea;
+  border-bottom-color: #667eea;
+}
+
+.saved-trips-empty {
+  padding: 24px 16px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.saved-trips-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.saved-trip-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  transition: background 0.15s;
+}
+.saved-trip-item:last-child {
+  border-bottom: none;
+}
+.saved-trip-item:hover {
+  background: #f8fafc;
+}
+
+.saved-trip-info {
+  flex: 1;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.saved-trip-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #1f2937;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.saved-trip-meta {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+.saved-trip-delete {
+  background: none;
+  border: none;
+  color: #cbd5e1;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+.saved-trip-delete:hover {
+  background: #fef2f2;
+  color: #ef4444;
+}
+
+.saved-trip-share {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.saved-trip-share:hover {
+  background: #f0f0ff;
+  color: #667eea;
+}

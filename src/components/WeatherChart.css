@@ -1,0 +1,14 @@
+.weather-chart {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 16px 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin-top: 16px;
+}
+
+.weather-chart h3 {
+  margin: 0 0 12px 4px;
+  font-size: 1rem;
+  color: #444;
+  font-weight: 600;
+}

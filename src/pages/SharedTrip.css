@@ -1,0 +1,101 @@
+.shared-page {
+  min-height: 100svh;
+  background: #f5f5f5;
+}
+
+.shared-loading,
+.shared-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  font-size: 1.1rem;
+  color: #64748b;
+  gap: 16px;
+}
+.shared-error h2 {
+  color: #475569;
+  font-size: 1.2rem;
+}
+
+.shared-back,
+.shared-back-link {
+  color: #667eea;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.shared-back:hover,
+.shared-back-link:hover {
+  text-decoration: underline;
+}
+
+.shared-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  padding: 32px 24px 28px;
+  text-align: center;
+}
+.shared-header h1 {
+  margin: 12px 0 4px;
+  font-size: 2rem;
+}
+.shared-dates {
+  opacity: 0.9;
+  font-size: 1rem;
+  margin: 4px 0 12px;
+}
+.shared-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 16px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+}
+.shared-back-link {
+  color: rgba(255, 255, 255, 0.85);
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
+.shared-header {
+  position: relative;
+}
+
+.shared-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.shared-budget {
+  background: #fff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.shared-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.shared-itinerary {
+  min-width: 0;
+}
+
+.shared-map-col {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .shared-layout {
+    grid-template-columns: 1fr;
+  }
+}

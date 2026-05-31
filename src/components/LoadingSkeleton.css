@@ -1,0 +1,74 @@
+.skeleton-container {
+  margin-top: 16px;
+}
+
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-section {
+  margin-bottom: 24px;
+}
+
+.skeleton-title {
+  width: 200px;
+  height: 24px;
+  margin-bottom: 16px;
+}
+
+.skeleton-cards {
+  display: flex;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.skeleton-card {
+  flex: 0 0 100px;
+  height: 140px;
+  border-radius: 12px;
+}
+
+.skeleton-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .skeleton-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.skeleton-day {
+  margin-bottom: 20px;
+}
+
+.skeleton-day-header {
+  height: 52px;
+  border-radius: 12px 12px 0 0;
+  margin-bottom: 0;
+}
+
+.skeleton-attraction {
+  height: 80px;
+  border-radius: 0;
+  margin-top: 2px;
+}
+
+.skeleton-attraction:last-child {
+  border-radius: 0 0 12px 12px;
+}
+
+.skeleton-map {
+  height: 450px;
+  border-radius: 12px;
+}

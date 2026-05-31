@@ -1,0 +1,20 @@
+.budget-chart {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin-top: 16px;
+}
+
+.budget-chart h3 {
+  margin: 0 0 12px;
+  font-size: 1rem;
+  color: #1f2937;
+}
+
+.budget-chart-total {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-top: 8px;
+}
