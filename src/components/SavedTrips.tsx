@@ -41,9 +41,10 @@ export default function SavedTrips({ onLoad, user }: Props) {
     }
   }, [user]);
 
+  // Load cloud trips when user is available (not just when panel opens)
   useEffect(() => {
-    if (open && user) loadCloud();
-  }, [open, user, loadCloud]);
+    if (user) loadCloud();
+  }, [user, loadCloud]);
 
   const unify = (): UnifiedTrip[] => {
     if (tab === 'cloud') {
