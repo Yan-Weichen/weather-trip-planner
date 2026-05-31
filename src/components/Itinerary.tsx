@@ -13,7 +13,7 @@ import {
   useSortable,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { MapPin, UtensilsCrossed, Hotel, Bus, Lock, Unlock, X, Clock, Star, Coins, Pencil, RefreshCw, Check, Wrench, Settings, MapPinned } from 'lucide-react';
+import { MapPin, UtensilsCrossed, Hotel, Bus, Lock, Unlock, Clock, Star, Coins, Pencil, RefreshCw, Check, Wrench, Settings, MapPinned } from 'lucide-react';
 import type { DayPlan, ItineraryItem } from '../types';
 import './Itinerary.css';
 
