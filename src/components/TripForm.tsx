@@ -74,6 +74,7 @@ export default function TripForm({ onSubmit, loading }: Props) {
           />
         </div>
       </div>
+      <p className="date-limit-hint">※ 天氣預報最多支援未來 16 天（至 {maxDate}）</p>
 
       <div className="form-field">
         <label>旅遊偏好（可多選）</label>

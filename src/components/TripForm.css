@@ -6,6 +6,12 @@
   margin-bottom: 24px;
 }
 
+.date-limit-hint {
+  margin: 6px 0 0;
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
 .form-row {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
