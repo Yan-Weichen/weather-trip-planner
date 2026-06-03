@@ -1,3 +1,13 @@
+/**
+ * services/weather.ts — 天氣資料服務
+ *
+ * 使用兩個免費 API（無需金鑰）：
+ * 1. Open-Meteo Geocoding API：城市名稱 → 經緯度
+ * 2. Open-Meteo Forecast API：經緯度 + 日期範圍 → 每日天氣預報
+ *
+ * 天氣資料會傳給 Gemini AI，AI 會根據降雨機率
+ * 決定景點是安排 outdoor 還是 indoor。
+ */
 import type { DayWeather } from '../types';
 
 interface GeoResult {
@@ -7,6 +17,11 @@ interface GeoResult {
   country: string;
 }
 
+/**
+ * 中文城市名稱對照英文表。
+ * Open-Meteo Geocoding API 對中文支援不穩定，
+ * 先嘗試原始輸入，失敗時查此表轉為英文再重試。
+ */
 const zhToEn: Record<string, string> = {
   '東京': 'Tokyo', '大阪': 'Osaka', '京都': 'Kyoto', '名古屋': 'Nagoya',
   '福岡': 'Fukuoka', '札幌': 'Sapporo', '沖繩': 'Okinawa', '北海道': 'Hokkaido',
@@ -38,6 +53,7 @@ const zhToEn: Record<string, string> = {
   '杜拜': 'Dubai', '開羅': 'Cairo',
 };
 
+/** 呼叫 Open-Meteo Geocoding API，搜尋城市名取得經緯度 */
 async function searchCity(name: string): Promise<GeoResult | null> {
   const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(name)}&count=5&language=zh`;
   const res = await fetch(url);
@@ -48,6 +64,11 @@ async function searchCity(name: string): Promise<GeoResult | null> {
   return { name: r.name, latitude: r.latitude, longitude: r.longitude, country: r.country };
 }
 
+/**
+ * 將城市名稱轉為經緯度座標。
+ * 策略：先用原始輸入查詢，失敗時查中文對照表轉英文再重試。
+ * @throws 找不到城市時拋出錯誤
+ */
 export async function geocodeCity(city: string): Promise<GeoResult> {
   // 先直接搜尋原始輸入
   const direct = await searchCity(city);
@@ -63,6 +84,18 @@ export async function geocodeCity(city: string): Promise<GeoResult> {
   throw new Error(`找不到城市「${city}」，請嘗試輸入英文名稱`);
 }
 
+/**
+ * 取得指定座標與日期範圍的逐日天氣預報。
+ * 使用 Open-Meteo Forecast API（免費，無需 API 金鑰）。
+ * 最多可查詢未來 16 天。
+ *
+ * 回傳的 weatherCode 為 WMO 標準代碼，由 weatherCodeToText 轉換成文字。
+ *
+ * @param lat 緯度
+ * @param lon 經度
+ * @param startDate 開始日期，格式 YYYY-MM-DD
+ * @param endDate 結束日期，格式 YYYY-MM-DD
+ */
 export async function getForecast(
   lat: number,
   lon: number,
@@ -93,12 +126,16 @@ export async function getForecast(
   });
 }
 
+/**
+ * 將 WMO 天氣代碼轉換為中文描述與 emoji。
+ * 代碼定義參考：https://open-meteo.com/en/docs#weathervariables
+ */
 export function weatherCodeToText(code: number): { text: string; emoji: string } {
   const map: Record<number, { text: string; emoji: string }> = {
-    0: { text: '晴天', emoji: '☀️' },
-    1: { text: '大致晴朗', emoji: '🌤️' },
-    2: { text: '局部多雲', emoji: '⛅' },
-    3: { text: '多雲', emoji: '☁️' },
+    0:  { text: '晴天', emoji: '☀️' },
+    1:  { text: '大致晴朗', emoji: '🌤️' },
+    2:  { text: '局部多雲', emoji: '⛅' },
+    3:  { text: '多雲', emoji: '☁️' },
     45: { text: '霧', emoji: '🌫️' },
     48: { text: '霧淞', emoji: '🌫️' },
     51: { text: '小毛雨', emoji: '🌦️' },

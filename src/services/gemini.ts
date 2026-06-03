@@ -1,13 +1,33 @@
+/**
+ * services/gemini.ts — Google Gemini AI 行程生成服務
+ *
+ * 使用 @google/genai SDK 呼叫 Gemini 1.5 Flash 模型。
+ * 所有 AI 呼叫均使用 JSON Schema 結構化輸出（responseMimeType: 'application/json'），
+ * 確保回傳格式可直接解析為 TripPlan 型別，不需要額外處理。
+ *
+ * 模型策略：優先使用 gemini-2.0-flash，失敗時自動 fallback 到 gemini-2.5-flash。
+ *
+ * 提供以下四個 AI 功能：
+ * 1. generateItineraryWithAI：完整行程生成（主流程）
+ * 2. getReplacementCandidates：單一景點替換候選（3 個備選）
+ * 3. regenerateTransitForDay：重新生成整日交通節點
+ * 4. regenerateDayWithAI：整日行程重新生成（保留鎖定項目）
+ */
 import { GoogleGenAI, Type, type Schema } from '@google/genai';
 import type { DayWeather, TripPlan, ItineraryItem } from '../types';
 import type { Preference } from './generateItinerary';
 import { geocodeCity } from './weather';
 
-
+/** Gemini AI 客戶端實例 */
 const ai = new GoogleGenAI({
   apiKey: import.meta.env.VITE_GEMINI_API_KEY,
 });
 
+/**
+ * 單一行程項目的 JSON Schema。
+ * 供多個 AI 功能共用（主行程、替換候選、整日重生成）。
+ * lat/lon 列為 required，確保 AI 一定提供座標。
+ */
 const itineraryItemSchema: Schema = {
   type: Type.OBJECT,
   properties: {
@@ -27,6 +47,7 @@ const itineraryItemSchema: Schema = {
   required: ['type', 'name', 'address', 'lat', 'lon', 'durationMinutes', 'description', 'costMin', 'costMax'],
 };
 
+/** 整趟旅行計畫的 JSON Schema（generateItineraryWithAI 使用） */
 const tripPlanSchema: Schema = {
   type: Type.OBJECT,
   properties: {
@@ -50,6 +71,11 @@ const tripPlanSchema: Schema = {
   required: ['destination', 'startDate', 'endDate', 'dailyPlans'],
 };
 
+/**
+ * 建構 Gemini 的主要行程生成 prompt。
+ * 將天氣資料、偏好、規劃規則注入為文字，讓 AI 產生符合條件的行程。
+ * 重要規則包含：降雨機率 > 60% 優先室內景點、每個項目需有經緯度等。
+ */
 function buildPrompt(
   destination: string,
   days: number,
@@ -98,11 +124,12 @@ ${weatherInfo}
 11. 每天約 7-10 個 items（含交通）`;
 }
 
+/** 產生前端用的短 ID（不需全域唯一，僅用於 React key 和拖曳識別） */
 function uid() {
   return Math.random().toString(36).slice(2, 9);
 }
 
-// ── Replacement candidates ──
+// ── 景點替換候選 ──
 
 const replacementSchema: Schema = {
   type: Type.OBJECT,
@@ -115,6 +142,11 @@ const replacementSchema: Schema = {
   required: ['candidates'],
 };
 
+/**
+ * 取得景點替換候選清單（3 個備選）。
+ * 使用者點選「替換」圖示時觸發，AI 根據目的地、天氣、原項目類型推薦。
+ * 備選需有差異性（不同風格/價位），降雨時優先推薦室內。
+ */
 export async function getReplacementCandidates(
   item: ItineraryItem,
   destination: string,
@@ -185,7 +217,7 @@ ${item.type === 'attraction' && weather.precipProbability > 60 ? '3. 降雨機�
   }));
 }
 
-// ── Regenerate transit for a day ──
+// ── 整日交通重新生成 ──
 
 const transitPlanSchema: Schema = {
   type: Type.OBJECT,
@@ -198,6 +230,12 @@ const transitPlanSchema: Schema = {
   required: ['items'],
 };
 
+/**
+ * 重新生成一天的交通節點。
+ * 確認整日修改後呼叫：移除舊的 transit 項目，由 AI 根據景點順序
+ * 重新插入合理的交通方式（捷運/步行/計程車等）和移動時間。
+ * 非交通項目保留原始物件（含 id、座標、鎖定狀態）。
+ */
 export async function regenerateTransitForDay(
   nonTransitItems: ItineraryItem[],
   destination: string,
@@ -286,7 +324,7 @@ ${itemsList}
   return result;
 }
 
-// ── Regenerate entire day (keep locked items) ──
+// ── 整日重新生成（保留鎖定項目）──
 
 const dayRegenSchema: Schema = {
   type: Type.OBJECT,
@@ -297,6 +335,13 @@ const dayRegenSchema: Schema = {
   required: ['items'],
 };
 
+/**
+ * 整日行程重新生成。
+ * 使用者點選「重新生成」時觸發，AI 生成全新一天行程，
+ * 但必須保留所有鎖定的項目。回傳後前端會覆寫當天行程。
+ *
+ * 安全機制：若 AI 回傳中漏掉了鎖定項目，強制補加在末尾。
+ */
 export async function regenerateDayWithAI(
   lockedItems: ItineraryItem[],
   destination: string,
@@ -403,6 +448,14 @@ ${lockedDesc}
   return { items, lodgingArea: raw.lodgingArea as string | undefined };
 }
 
+/**
+ * 主要行程生成函式，由 useTripPlanner.plan() 呼叫。
+ * 使用 JSON Schema 強制 Gemini 輸出結構化 JSON，
+ * 再解析為 TripPlan 型別。
+ *
+ * 若 AI 沒有提供景點座標，會額外呼叫 geocodeCity 補救。
+ * 模型 fallback 順序：gemini-2.0-flash → gemini-2.5-flash。
+ */
 export async function generateItineraryWithAI(
   destination: string,
   days: number,
