@@ -57,7 +57,7 @@ VITE_GOOGLE_PLACES_API_KEY=
 3. 點選左側 **Get API key** → **Create API key**
 4. 複製金鑰，填入 `VITE_GEMINI_API_KEY`
 
-> 免費額度：Gemini 1.5 Flash 每分鐘 15 次請求，每天 1500 次，足夠開發使用。
+> 本專案使用 `gemini-2.0-flash`，失敗時自動改用 `gemini-2.5-flash`。免費額度依 Google 當期公告為準，開發用途通常足夠。
 
 ---
 
@@ -128,7 +128,9 @@ create policy "Public trips are readable"
 
 ---
 
-## 部署到 Vercel
+## （選用）部署到 Vercel
+
+> 本專案目前以本機執行為主，未維護對外站台。以下步驟供想自行部署的人參考。
 
 ### 方法一：連接 GitHub（推薦）
 
